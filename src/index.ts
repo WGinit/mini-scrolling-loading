@@ -47,7 +47,7 @@ Component({
         list: []
     },
     ready() {
-        this.virtualListRef = this.virtualListRef || this.selectComponent('#virtual-list');
+        this.virtualListRef = this.virtualListRef || this.selectComponent('#scroll-view');
     },
     lifetimes: {
         attached() {
