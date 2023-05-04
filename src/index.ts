@@ -41,7 +41,13 @@ Component({
     data: {
         flag: false,
         loading: true,
+        itemSize: index => 50 * ((index % 3) + 1),
+        styleItems: null,
+        itemCount: 0,
         list: []
+    },
+    ready() {
+        this.virtualListRef = this.virtualListRef || this.selectComponent('#virtual-list');
     },
     lifetimes: {
         attached() {
@@ -72,7 +78,8 @@ Component({
                 }
                 this.setData({
                     list,
-                    loading
+                    loading,
+                    itemCount: list.length
                 }, () => {
                     this.data.flag = false
                 })

@@ -1,5 +1,5 @@
 <view class="scroll-wraper custom-class">
-    <scroll-view class="scroll-box" scroll-y="true" style="height: {{height}};" bindscrolltoupper="upper" bindscrolltolower="lower">
+    <scroll-view id="scroll-view" class="scroll-box" scroll-y="true" style="height: {{height}};" bindscrolltoupper="upper" bindscrolltolower="lower">
 
         <block wx:for="{{list}}" wx:key="index">
             <item item="{{item}}" binddelItem="deleteItem"></item>
@@ -20,3 +20,16 @@
         </block>
     </scroll-view>
 </view>
+
+<!-- <view class="container">
+  <virtual-list scrollToIndex="{{ 16 }}" lowerThreshold="{{50}}" height="{{ 600 }}" 
+  overscanCount="{{10}}" item-count="{{ itemCount }}" itemSize="{{ itemSize }}" 
+  estimatedItemSize="{{100}}" bind:render="slice" bind:scrolltolower="loadMore">
+    <view wx:if="{{styleItems}}">
+      <view wx:for="{{ list }}" wx:key="index" style="{{ styleItems[index] }};
+      line-height:50px;border-bottom:1rpx solid #ccc;padding-left:30rpx">{{ item + 1 }}</view>
+    </view>
+  </virtual-list>
+  {{itemCount}}
+</view> -->
+
