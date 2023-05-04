@@ -1,0 +1,11 @@
+{
+  "component": true,
+  "usingComponents": {
+  },
+
+  "componentGenerics": {
+    "item": {
+        "default": "./item"
+    }
+  }
+}

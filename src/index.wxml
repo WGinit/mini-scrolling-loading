@@ -1,0 +1,22 @@
+<view class="scroll-wraper custom-class">
+    <scroll-view class="scroll-box" scroll-y="true" style="height: {{height}};" bindscrolltoupper="upper" bindscrolltolower="lower">
+
+        <block wx:for="{{list}}" wx:key="index">
+            <item item="{{item}}" binddelItem="deleteItem"></item>
+        </block>
+
+        <slot name="loading" wx:if="{{loading}}"></slot>
+        <slot name="loading-finish" wx:else></slot>
+        <view class="loading" wx:if="{{!$slots['loading']}}">
+            {{loading ? '加载中...' : '到底了'}}
+        </view>
+
+        <block wx:if="{{!list.length && !loading}}">
+            <view class="empty" wx:if="{{!$slots['empty']}}">
+                <image src="https://img01.yzcdn.cn/vant/custom-empty-image.png" mode="aspectFill" class="icon-empty" mode="aspectFill"></image>
+                <view class="empty-text">暂无数据</view>
+            </view>
+            <slot name="empty"></slot>
+        </block>
+    </scroll-view>
+</view>

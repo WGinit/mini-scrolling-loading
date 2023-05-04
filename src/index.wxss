@@ -1,0 +1,32 @@
+
+.scroll-wraper {
+    position: relative;
+    width: 100%;
+}
+.scroll-view-item {
+    padding: 20rpx 0;
+    text-align: center;
+}
+.loading {
+    text-align: center;
+    font-size: 30rpx;
+    color: #999;
+    padding: 30rpx 0;
+}
+.empty {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.icon-empty {
+    width: 120rpx;
+    height: 120rpx;
+}
+.empty-text {
+    font-size: 28rpx;
+    color: #999;
+    margin-top: 20rpx
+}

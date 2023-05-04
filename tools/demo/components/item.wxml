@@ -1,0 +1,2 @@
+
+<view class="scroll-view-item" mark:index="{{item.index}}" bindtap="delItem">{{item.index}}</view>
