@@ -27,10 +27,11 @@ npm i mini-scrolling-loading --save
 }
 ```
 scrolling-item(组建名可自定义)组建为开发者自定义的列表单个item样式组建，mini-scrolling-loading采用抽象节点方式进行渲染，例如：
+#### 组建.wxml
 ```javascript
 <view class="scroll-view-item">{{item.title}}</view> 
 ```
-.js
+#### 组建.ts
 ```javascript
 Component({
     properties: {
@@ -39,7 +40,7 @@ Component({
     methods: {
         delItem(e: { mark: { index: number}}) {
             const {index} = e.mark
-            this.triggerEvent('delItem', index) // 如果有使用删除，在删除成功后，需派发delItem⌚️事件，传入删除的index索引即可，组建会无刷新更新列表。
+            this.triggerEvent('delItem', index) // 如果有使用删除，在删除成功后，需派发delItem事件，传入删除的index索引即可，组建会无刷新更新列表。
         }
     }
 })
@@ -76,3 +77,15 @@ Demo
 ## 分页删除数据无刷新图示
 
 ![删除元素](./src/assets/del-item.png)
+
+## 外部样式
+| 类名 | 描述 |
+| :--: | :--: |
+| custom-class | 根结点样式 |
+
+## slot
+| name | 描述 |
+| :--: | :--: |
+| loading | 加载中 |
+| loading-finish | 加载结束 |
+| empty | 暂无数据占位 |
