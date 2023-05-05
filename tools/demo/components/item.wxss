@@ -1,4 +1,5 @@
 .scroll-view-item {
-    padding: 20rpx 0;
+    /* padding: 20rpx 0; */
+    height: 40px;
     text-align: center;
   }

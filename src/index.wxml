@@ -1,10 +1,10 @@
 
 <wxs module="computed">
     var paddingTop = function(startIndex, itemHeight) {
-      return startIndex * itemHeight * 2;
+      return startIndex * itemHeight;
     }
     var paddingBottom = function(totalCount, endIndex, itemHeight) {
-      return (totalCount - endIndex) * itemHeight * 2;
+      return (totalCount - endIndex) * itemHeight;
     }
     module.exports = {
       paddingTop: paddingTop,
@@ -16,7 +16,7 @@
 <view class="scroll-wraper custom-class" id="container">
     <scroll-view id="scroll-view" class="scroll-box" scroll-y="true" style="height: {{height}};" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="handleScroll">
 
-        <view class="outer-container" style="padding-top: {{computed.paddingTop(startIndex, itemHeight)}}rpx;padding-bottom: {{computed.paddingBottom(totalCount, endIndex, itemHeight)}}rpx;">
+        <view class="scroll-container" style="padding-top: {{computed.paddingTop(startIndex, itemHeight)}}px;padding-bottom: {{computed.paddingBottom(totalCount, endIndex, itemHeight)}}px;">
             <block wx:for="{{currentData}}" wx:key="index">
                 <item item="{{item}}" binddelItem="deleteItem"></item>
             </block>
