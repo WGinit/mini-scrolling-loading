@@ -1,3 +1,4 @@
+
 # mini-scrolling-loading
 
 微信小程序滚动加载拓展组件，对官方方案进行了以下优化：
@@ -39,3 +40,7 @@ npm i mini-scrolling-loading --save
 ## 虚拟列表原理图示
 
 ![虚拟列表](./src/assets/virtual.png)
+
+## 分页删除数据无刷新图示
+
+![删除元素](./src/assets/del-item.png)
