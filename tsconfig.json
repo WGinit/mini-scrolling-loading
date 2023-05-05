@@ -18,7 +18,7 @@
   ],
   "include": [
     "src/**/*.ts"
-  ],
+, "src/util.js", "src/util.js"  ],
   "exclude": [
     "node_modules"
   ]

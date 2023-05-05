@@ -92,5 +92,5 @@ module.exports = {
     }
   },
 
-  copy: ['./virtual.ts'], // 将会复制到目标目录
+  copy: ['./assets', './util.js'], // 将会复制到目标目录
 }

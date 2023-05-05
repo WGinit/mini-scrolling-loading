@@ -1,9 +1,26 @@
-<view class="scroll-wraper custom-class">
-    <scroll-view id="scroll-view" class="scroll-box" scroll-y="true" style="height: {{height}};" bindscrolltoupper="upper" bindscrolltolower="lower">
 
-        <block wx:for="{{list}}" wx:key="index">
-            <item item="{{item}}" binddelItem="deleteItem"></item>
-        </block>
+<wxs module="computed">
+    var paddingTop = function(startIndex, itemHeight) {
+      return startIndex * itemHeight * 2;
+    }
+    var paddingBottom = function(totalCount, endIndex, itemHeight) {
+      return (totalCount - endIndex) * itemHeight * 2;
+    }
+    module.exports = {
+      paddingTop: paddingTop,
+      paddingBottom: paddingBottom
+    }
+</wxs>
+
+
+<view class="scroll-wraper custom-class" id="container">
+    <scroll-view id="scroll-view" class="scroll-box" scroll-y="true" style="height: {{height}};" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="handleScroll">
+
+        <view class="outer-container" style="padding-top: {{computed.paddingTop(startIndex, itemHeight)}}rpx;padding-bottom: {{computed.paddingBottom(totalCount, endIndex, itemHeight)}}rpx;">
+            <block wx:for="{{currentData}}" wx:key="index">
+                <item item="{{item}}" binddelItem="deleteItem"></item>
+            </block>
+        </view>
 
         <slot name="loading" wx:if="{{loading}}"></slot>
         <slot name="loading-finish" wx:else></slot>
@@ -11,7 +28,7 @@
             {{loading ? '加载中...' : '到底了'}}
         </view>
 
-        <block wx:if="{{!list.length && !loading}}">
+        <block wx:if="{{!totalCount && !loading}}">
             <view class="empty" wx:if="{{!$slots['empty']}}">
                 <image src="https://img01.yzcdn.cn/vant/custom-empty-image.png" mode="aspectFill" class="icon-empty" mode="aspectFill"></image>
                 <view class="empty-text">暂无数据</view>
@@ -21,15 +38,4 @@
     </scroll-view>
 </view>
 
-<!-- <view class="container">
-  <virtual-list scrollToIndex="{{ 16 }}" lowerThreshold="{{50}}" height="{{ 600 }}" 
-  overscanCount="{{10}}" item-count="{{ itemCount }}" itemSize="{{ itemSize }}" 
-  estimatedItemSize="{{100}}" bind:render="slice" bind:scrolltolower="loadMore">
-    <view wx:if="{{styleItems}}">
-      <view wx:for="{{ list }}" wx:key="index" style="{{ styleItems[index] }};
-      line-height:50px;border-bottom:1rpx solid #ccc;padding-left:30rpx">{{ item + 1 }}</view>
-    </view>
-  </virtual-list>
-  {{itemCount}}
-</view> -->
 

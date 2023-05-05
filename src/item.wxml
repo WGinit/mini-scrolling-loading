@@ -1,1 +1,1 @@
-<view>{{item.index}}</view>
+<view class="scroll-view-item">{{item.index}}</view>

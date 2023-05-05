@@ -1,1 +1,1 @@
-<mini-scrolling-loading generic:item="scrolling-item" height="100vh" perpage="{{20}}" api="{{getData}}"></mini-scrolling-loading>
+<mini-scrolling-loading generic:item="scrolling-item" height="100vh" perpage="{{40}}" api="{{getData}}"></mini-scrolling-loading>

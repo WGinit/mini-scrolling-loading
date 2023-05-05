@@ -35,3 +35,7 @@ npm i mini-scrolling-loading --save
 | 字段名 | 类型 | 必填 | 默认值 | 描述 |
 | :---: | :---:| :---:| :---: | :---: |
 | api | Function | 是 | - | API接口请求函数 |
+
+## 虚拟列表原理图示
+
+![虚拟列表](./src/assets/virtual.png)

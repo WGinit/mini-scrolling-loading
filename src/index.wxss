@@ -3,6 +3,9 @@
     position: relative;
     width: 100%;
 }
+.scroll-box {
+    position: relative;
+}
 .scroll-view-item {
     padding: 20rpx 0;
     text-align: center;

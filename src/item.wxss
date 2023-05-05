@@ -1,0 +1,4 @@
+.scroll-view-item {
+    padding: 20rpx 0;
+    text-align: center;
+  }
