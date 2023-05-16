@@ -6,6 +6,7 @@ const allList = Array.from({length: 10000}, (_, index) => {
     }
 })
 
+
 Page({
     data: {
         getData: (params) => {
@@ -16,7 +17,7 @@ Page({
                 console.log('res===', res)
                 setTimeout(() => {
                     resolve(res)
-                }, 500);
+                }, 100);
             })
         }
     },

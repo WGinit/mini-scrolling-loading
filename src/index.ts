@@ -30,6 +30,10 @@ Component({
             type: String,
             value: '100vh'
         },
+        itemHeight: {
+            type: Number,
+            value: 40
+        },
         api: {
             type: Function as any,
             value: async () => {}
@@ -55,7 +59,7 @@ Component({
     ready() {
         this.initBox().then(() => {
             this.getData(() => {
-                this.renderPage(0)
+                this.conputePage(0)
             })
         }).catch(err => {
             console.log('获取容器高度失败', err)
@@ -100,6 +104,7 @@ Component({
         upper() {
             if (!this.data.enUpper) return
             this.data.list = []
+            this.data.scrollTop = 0
             this.setData({
                 page: 1,
                 flag: false,
@@ -131,7 +136,7 @@ Component({
             this.data.page = currentPage
             this.data.list = list
             this.getData(() => {
-                this.renderPage(this.data.scrollTop)
+                this.conputePage(this.data.scrollTop)
             }, true)
         },
         // 去重
@@ -165,20 +170,15 @@ Component({
                 }).exec()
             })
         },
-        renderPage(scrollTop) {
+        conputePage(scrollTop) {
             this.data.scrollTop = scrollTop
             let startIndex = Math.floor(scrollTop / this.data.itemHeight)
             let endIndex = startIndex + this.data.showCount * 2
             if (endIndex > this.data.totalCount) {
                 endIndex = this.data.totalCount
             }
-
-             // 将startIndex往前推也是为了解决下拉列表速度过快导致的白屏问题
             startIndex = startIndex <= this.data.showCount ? 0 : startIndex - this.data.showCount
-
-            //  当前展示的数据
             const showData = this.data.list.slice(startIndex, endIndex)
-
             this.setData({
                 startIndex,
                 endIndex,
@@ -187,7 +187,7 @@ Component({
         },
         handleScroll: throttle(function (event) {
             const scrollTop = event.detail.scrollTop
-            this.renderPage(scrollTop)
+            this.conputePage(scrollTop)
         }, 300)
     },
 })
