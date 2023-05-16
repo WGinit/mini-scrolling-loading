@@ -20,7 +20,8 @@ npm i mini-scrolling-loading --save
 ```javascript
 {
   "usingComponents": {
-    "mini-scrolling-loading": "mini-scrolling-loading/index"
+    "mini-scrolling-loading": "mini-scrolling-loading/index",
+    "scrolling-item": "../../components/list-item"
   }
 }
 ```
@@ -28,7 +29,7 @@ npm i mini-scrolling-loading --save
 3.WXML 文件中引用 mini-scrolling-loading
 
 ```javascript
-<mini-scrolling-loading generic:item="scrolling-item" height="100vh" perpage="{{20}}" api="{{getData}}"></mini-scrolling-loading>
+<mini-scrolling-loading generic:sitem="scrolling-item" perpage="{{20}}" api="{{getData}}"></mini-scrolling-loading>
 ```
 
 #### mini-scrolling-loading属性介绍
@@ -44,3 +45,29 @@ npm i mini-scrolling-loading --save
 ## 分页删除数据无刷新图示
 
 ![删除元素](./src/assets/del-item.png)
+
+## 二次开发
+
+1. clone代码
+
+```javascript
+git clone https://github.com/wginit/mini-scrolling-loading
+```
+
+2. 安装依赖
+
+```javascript
+npm i or yarn
+```
+
+3. 开发或监听模式
+
+```javascript
+yarn watch
+```
+
+4. 打包
+
+```javascript
+yarn build
+```

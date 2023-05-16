@@ -2,12 +2,11 @@
 const allList = Array.from({length: 10000}, (_, index) => {
     return {
         index: index + 1,
-        id: index + 1
+        id: Math.ceil(Math.random(1) * 10000)
     }
 })
 
 Page({
-
     data: {
         getData: (params) => {
             return new Promise((resolve, reject) => {
@@ -21,5 +20,10 @@ Page({
             })
         }
     },
+
+
+    delSuccess() {
+        console.log('del-success')
+    }
 
 })
