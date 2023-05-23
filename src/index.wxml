@@ -1,12 +1,11 @@
 
+
 <wxs module="computed">
     var paddingTop = function(startIndex, itemHeight) {
-        console.log('startIndex===', startIndex)
         return startIndex * itemHeight;
     }
-    var paddingBottom = function(totalCount, endIndex, itemHeight) {
-        console.log('endIndex===', endIndex)
-        return (totalCount - endIndex) * itemHeight;
+    var paddingBottom = function(listLength, endIndex, itemHeight) {
+        return (listLength - endIndex) * itemHeight;
     }
     module.exports = {
         paddingTop: paddingTop,
@@ -18,9 +17,9 @@
 <view class="scroll-wraper custom-class" id="container">
     <scroll-view id="scroll-view" class="scroll-box" scroll-y="true" style="height: {{height}};" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="handleScroll">
 
-        <view class="outer-container" style="padding-top: {{computed.paddingTop(startIndex, itemHeight)}}px;padding-bottom: {{computed.paddingBottom(totalCount, endIndex, itemHeight)}}px;">
+        <view class="outer-container" style="padding-top: {{computed.paddingTop(startIndex, itemHeight)}}px;padding-bottom: {{computed.paddingBottom(listLength, endIndex, itemHeight)}}px;">
             <block wx:for="{{showData}}" wx:key="index">
-                <sitem item="{{item}}" binddelItem="deleteItem"></sitem>
+                <sitem item="{{item}}" binddelItem="deleteItem" sprops="{{sprops}}" bindsEvent="sEvent"></sitem>
             </block>
         </view>
 
@@ -30,7 +29,7 @@
             {{loading ? '加载中...' : '到底了'}}
         </view>
 
-        <block wx:if="{{!totalCount && !loading}}">
+        <block wx:if="{{!listLength && !loading}}">
             <view class="empty" wx:if="{{!$slots['empty']}}">
                 <image src="https://img01.yzcdn.cn/vant/custom-empty-image.png" mode="aspectFill" class="icon-empty" mode="aspectFill"></image>
                 <view class="empty-text">暂无数据</view>

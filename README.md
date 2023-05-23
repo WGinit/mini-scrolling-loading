@@ -53,7 +53,7 @@ Component({
 3.WXML 文件中引用 mini-scrolling-loading
 
 ```javascript
-<mini-scrolling-loading generic:sitem="scrolling-item" perpage="{{20}}" api="{{getData}}"></mini-scrolling-loading>
+<mini-scrolling-loading generic:sitem="scrolling-item" perpage="{{20}}" idKey="id" api="{{getData}}"></mini-scrolling-loading>
 ```
 
 #### mini-scrolling-loading属性介绍
@@ -65,12 +65,17 @@ Component({
 | perpage | Number | 否 | 10 | 页码|
 | perpageKey | String | 否 | perpage | 分页参数字段，例如pageSize |
 | idKey | String | 是 | id | 能代表唯一标识的字段名 |
+| resKey | String | 否 | data | 接口返回的data路径 |
+| totalKey | String| 否 | total| 数据量总数 |
 | query | Object | 否 | {} | 查询额外字段参数 |
 | height | String | 是 | 100vh | 可视容器高度 |
 | itemHeight | number | 是 | 40 | 单个Item高度，单位px|
 | enUpper | Boolean | 否 | false | 开启下拉刷新 |
-| apiError | Function | 否 | - | api请求失败回调 |
+| success | Function | 否 | { totalCount: number, data: []} | api 请求成功返回 |
+| error | Function | 否 | - | api请求失败回调 |
 | delSuccess | Function | 否 | - | 删除成功回调 |
+| sprops | Object | 否 | {} | 抽象节点的props集合 |
+| sEvent | Function | 否 | - | 抽象节点派发事件委托 |
 
 ## Demo
 
@@ -106,6 +111,15 @@ Demo
 | loading-finish | 加载结束 |
 | empty | 暂无数据占位 |
 
+## 方法
+
+通过 selectComponent 可以获取到 mini-scrolling-loading 实例并调用实例方法。
+| 方法名 | 参数 | 返回值 | 介绍 |
+|:---:| :---: | :---: | :---: |
+| refreshData | - | - | 刷新列表 |
+| getResData| - | object[]| 获取接口返回值 |
+| getResTotal | - | number | 获取总数 |
+
 ## 二次开发
 
 1. clone代码
@@ -131,3 +145,7 @@ yarn watch
 ```javascript
 yarn build
 ```
+
+## 备注
+
+针对抽象子组件如果设计业务交互逻辑较为复杂，因微信抽象节点功能限制，不建议使用此组件去实现。

@@ -18,9 +18,17 @@ Component({
             type: String,
             value: 'perpage'
         },
+        resKey: {
+            type: String,
+            value: 'data'
+        },
         idKey: {
             type: String,
             value: 'id'
+        },
+        totalKey: {
+            type: String,
+            value: 'total',
         },
         query: {
             type: Object,
@@ -41,6 +49,10 @@ Component({
         enUpper: {
             type: Boolean,
             value: false
+        },
+        sprops: {
+            type: Object,
+            value: {}
         }
     },
     data: {
@@ -54,7 +66,8 @@ Component({
         itemHeight: 45,
         showCount: 0,
         totalCount: 0,
-        scrollTop: 0
+        scrollTop: 0,
+        listLength: 0
     },
     ready() {
         this.initBox().then(() => {
@@ -68,7 +81,7 @@ Component({
     methods: {
         getData(cb: Function, delaySet: Boolean) {
             const {
-                flag, loading, perpageKey, query
+                flag, loading, perpageKey, query, resKey, totalKey
             } = this.data
             if (flag || !loading) return
             const params = {
@@ -77,28 +90,80 @@ Component({
                 ...query
             }
             this.data.flag = true
+            const _resKey = resKey.split('.')
+            const _totalKey = totalKey.split('.')
             this.data.api(params).then(res => {
+                let listItem = null
+                _resKey.forEach(key => {
+                    if (!listItem) {
+                        listItem = res[key]
+                    } else {
+                        listItem = listItem[key]
+                    }
+                })
+                console.log('data===', listItem)
+
                 let {list} = this.data
-                list = [...list, ...res]
-                const loading = res.length === this.data.perpage
+                list = [...list, ...listItem]
+                const loading = listItem.length === this.data.perpage
                 if (delaySet) {
                     list = this.duplicateRemoval(list)
                     this.triggerEvent('delSuccess')
                 }
                 this.data.list = list
-                const total = list.length
+                let _total = null
+                _totalKey.forEach(key => {
+                    if (!_total) {
+                        _total = res[key]
+                    } else {
+                        _total = _total[key]
+                    }
+                })
+                const listLength = list.length
+                this.triggerEvent('success', {
+                    totalCount: _total,
+                    data: listItem
+                })
                 this.setData({
-                    totalCount: total,
-                    loading
+                    totalCount: _total,
+                    loading,
+                    listLength
                 }, () => {
                     this.data.flag = false
                     if (typeof cb === 'function') {
-                        cb(res)
+                        cb(listItem)
                     }
                 })
             }).catch(err => {
-                this.triggerEvent('apiError', err)
+                this.triggerEvent('error', err)
             })
+        },
+
+        refreshData() {
+            this.data.page = 1
+            this.setData({
+                flag: false,
+                loading: true,
+                list: [],
+                showData: [],
+                startIndex: 0,
+                endIndex: 20,
+                scrollTop: 0,
+                totalCount: 0,
+            }, () => {
+                this.getData(() => {
+                    this.conputePage(0)
+                })
+            })
+        },
+
+
+        getResData() {
+            return this.data.list
+        },
+
+        getResTotal() {
+            return this.data.totalCount
         },
 
         upper() {
@@ -170,12 +235,12 @@ Component({
                 }).exec()
             })
         },
-        conputePage(scrollTop) {
+        conputePage(scrollTop = 0) {
             this.data.scrollTop = scrollTop
             let startIndex = Math.floor(scrollTop / this.data.itemHeight)
             let endIndex = startIndex + this.data.showCount * 2
-            if (endIndex > this.data.totalCount) {
-                endIndex = this.data.totalCount
+            if (endIndex > this.data.list.length) {
+                endIndex = this.data.list.length
             }
             startIndex = startIndex <= this.data.showCount ? 0 : startIndex - this.data.showCount
             const showData = this.data.list.slice(startIndex, endIndex)
@@ -188,6 +253,10 @@ Component({
         handleScroll: throttle(function (event) {
             const scrollTop = event.detail.scrollTop
             this.conputePage(scrollTop)
-        }, 300)
+        }, 300),
+
+        sEvent(e) {
+            this.triggerEvent('sEvent', e.detail)
+        }
     },
 })
