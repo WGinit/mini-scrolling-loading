@@ -87,15 +87,15 @@ https://developers.weixin.qq.com/s/r4BBrfmF7NIF
 
 ## 虚拟列表原理图示
 
-![虚拟列表](./src/assets/virtual.png)
+![虚拟列表](https://i.imgur.com/wbODRGR.png)
 
 Demo
 
-![demo](./src/assets/virtual-demo.gif)
+![demo](https://i.imgur.com/vRi9SfG.gif)
 
 ## 分页删除数据无刷新图示
 
-![删除元素](./src/assets/del-item.png)
+![删除元素](https://i.imgur.com/3NfXmrV.png)
 
 ## 外部样式
 
